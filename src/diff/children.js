@@ -25,7 +25,7 @@ import { removeNode } from '../util';
  */
 export function diffChildren(parentDom, newParentVNode, oldParentVNode, context, isSvg, excessDomChildren, mounts, ancestorComponent, oldDom) {
 	let childVNode, i, j, p, index, oldVNode, newDom,
-		nextDom, sibDom, focus;
+		sibDom, focus;
 
 	let newChildren = newParentVNode._children || toChildArray(newParentVNode.props.children, newParentVNode._children=[], coerceToVNode, true);
 	let oldChildren = oldParentVNode!=null && oldParentVNode!=EMPTY_OBJ && oldParentVNode._children || EMPTY_ARR;
@@ -91,8 +91,6 @@ export function diffChildren(parentDom, newParentVNode, oldParentVNode, context,
 			oldChildren[index] = undefined;
 		}
 
-		nextDom = oldDom!=null && oldDom.nextSibling;
-
 		// Morph the old element into the new one, but don't append it to the dom yet
 		newDom = diff(parentDom, childVNode, oldVNode, context, isSvg, excessDomChildren, mounts, ancestorComponent, null, oldDom);
 
@@ -135,7 +133,7 @@ export function diffChildren(parentDom, newParentVNode, oldParentVNode, context,
 				focus.focus();
 			}
 
-			oldDom = newDom!=null ? newDom.nextSibling : nextDom;
+			oldDom = newDom.nextSibling;
 		}
 	}
 
